@@ -8,9 +8,33 @@ class POSTGRESQLDatabase {
         $this->open_connection();
     }
     
+    private function heroku_db() {
+        // heroku
+        $dbstr1 = getenv('DATABASE_URL');
+	$dbstr2 = substr("$dbstr1", 11);
+	$dbstrarruser = explode(":", $dbstr2);
+        $dbstrarrport = explode("/", $dbstrarruser[2]);
+        $dbstrarrhost = explode("@", $dbstrarruser[1]);
+        $dbpassword = $dbstrarrhost[0];
+        $dbhost = $dbstrarrhost[1];
+        $dbport = $dbstrarrport[0];
+        $dbuser = $dbstrarruser[0];
+        $dbname = $dbstrarrport[1];
+        unset($dbstrarrport);
+        unset($dbstrarruser);
+        unset($dbstrarrhost);
+        unset($dbstr1);
+        unset($dbstr2);
+        
+        $connect = "host=" . $dbhost . ";dbname=" . $dbname . ";user=" . $dbuser
+                . ";port=" . $dbport . ";sslmode=require;password=" . $dbpassword 
+                . ";";
+        return $connect;
+    }
     private function open_connection() {
         // local
-        $connect = 'host=localhost dbname=movie_app user=postgres password=root';
+        // $connect = 'host=localhost dbname=movie_app user=postgres password=root';
+        $connect = $this->heroku_db();
         
         try {
             $this->connection = new PDO('pgsql:'.$connect);
