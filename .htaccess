@@ -1,0 +1,28 @@
+#<Files ~ "^.*">
+#    Deny from all
+#</Files>
+#
+#<Files ~ "^get|insert|error">
+#    Allow from all
+#</Files>
+
+# error pages
+RewriteEngine On
+
+ErrorDocument 400 /error.php
+ErrorDocument 401 /error.php
+ErrorDocument 403 /error.php
+ErrorDocument 404 /error.php
+ErrorDocument 500 /error.php
+ErrorDocument 502 /error.php
+
+# remove php extension
+#RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI}.php -f
+RewriteRule ^(.*)$ $1.php [QSA,L]
+
+# return 404 for direct .php requests
+RewriteCond %{THE_REQUEST} \.php[/\s?] [NC]
+RewriteRule !^error - [R=404,L]
