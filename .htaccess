@@ -1,10 +1,10 @@
-#<Files ~ "^.*">
-#    Deny from all
-#</Files>
-#
-#<Files ~ "^get|insert|error">
-#    Allow from all
-#</Files>
+<Files ~ "^.*">
+    Deny from all
+</Files>
+
+<Files ~ "^get|insert|error">
+    Allow from all
+</Files>
 
 # error pages
 RewriteEngine On
