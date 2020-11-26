@@ -27,7 +27,7 @@ function get_results() {
     );
     
     $data = array(
-        'success' => $success
+        SUCCESS_M => $success
     );
     
     return $data;

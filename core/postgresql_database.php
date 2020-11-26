@@ -39,7 +39,7 @@ class POSTGRESQLDatabase {
         try {
             $this->connection = new PDO('pgsql:'.$connect);
         } catch (\PDOException $exc) {
-            HelperFunctions::return_message('error', ERROR_CONNECTING_TO_DATABASE, 
+            HelperFunctions::return_message(ERROR_M, ERROR_CONNECTING_TO_DATABASE, 
                     'Couldn\'t connect to the database. Please refresh.');
             $exc->getTraceAsString();
         }
@@ -47,7 +47,7 @@ class POSTGRESQLDatabase {
     
     private function confirm_query($results) {
         if(!$results) {
-            HelperFunctions::return_message('error', ERROR_WITH_DATA, 'Error with data');
+            HelperFunctions::return_message(ERROR_M, ERROR_WITH_DATA, 'Error with data');
         }
     }
     

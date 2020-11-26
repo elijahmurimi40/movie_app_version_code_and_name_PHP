@@ -2,6 +2,9 @@
 require_once 'core/database_functions.php';
 require_once 'core/constants.php';
 
+HelperFunctions::verify_method_post();
+HelperFunctions::verify_content_json();
+
 function verify_password($password) {
     // $password = '***fortie40###';
     $username = '40FoRtIe';
@@ -42,7 +45,7 @@ function insert_data() {
     );
     
     $database->update($table, $placeholder, $where, $insert_data);
-    HelperFunctions::return_message('success', SUCCESS, 'Successfully Updated');
+    HelperFunctions::return_message(SUCCESS_M, SUCCESS, 'Successfully Updated');
 }
 
 $results = insert_data();
