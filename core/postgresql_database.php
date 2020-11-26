@@ -33,8 +33,8 @@ class POSTGRESQLDatabase {
     }
     private function open_connection() {
         // local
-        // $connect = 'host=localhost dbname=movie_app user=postgres password=root';
-        $connect = $this->heroku_db();
+        $connect = 'host=localhost dbname=movie_app user=postgres password=root';
+        // $connect = $this->heroku_db();
         
         try {
             $this->connection = new PDO('pgsql:'.$connect);
@@ -47,7 +47,7 @@ class POSTGRESQLDatabase {
     
     private function confirm_query($results) {
         if(!$results) {
-            HelperFunctions::return_message('error', ERROR_GETTING_DATA, 'Error getting data');
+            HelperFunctions::return_message('error', ERROR_WITH_DATA, 'Error with data');
         }
     }
     

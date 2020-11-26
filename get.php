@@ -1,5 +1,11 @@
 <?php
 require_once 'core/database_functions.php';
+require_once 'core/constants.php';
+
+$request_method = filter_input(\INPUT_SERVER, 'REQUEST_METHOD', 
+        \FILTER_SANITIZE_SPECIAL_CHARS);
+HelperFunctions::verify_method_post($request_method);
+
 function get_results() {
     $sql = "SELECT * FROM version_code_name ORDER BY id ASC";
     $results = DatabaseFunctions::find_by_sql($sql, null);
@@ -13,11 +19,15 @@ function get_results() {
         $version_name = $key->version_name;
     }
     
-    $data = array(
+    $success = array(
         'status' => SUCCESS,
         'id' => $id,
         'version_code' => $version_code,
         'version_name' => $version_name
+    );
+    
+    $data = array(
+        'success' => $success
     );
     
     return $data;

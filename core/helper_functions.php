@@ -7,5 +7,14 @@ class HelperFunctions {
         echo $errorMessage;
         die();
     }
+    
+    public static function verify_method_post($reqest_method) {
+        if($reqest_method == 'POST') {
+            return true;
+        } else {
+            self::return_message('error', ERROR, 'Only POST requests');
+            return false;
+        }
+    }
 }
 
