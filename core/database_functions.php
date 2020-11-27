@@ -32,7 +32,6 @@ class DatabaseFunctions {
         return array_key_exists($attribute, $object_vars);
     }
     
-    public $id;
     public $version_code;
     public $version_name;
     public $password;

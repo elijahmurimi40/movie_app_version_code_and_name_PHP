@@ -7,16 +7,16 @@ HelperFunctions::verify_content_json();
 
 function verify_password($password) {
     // $password = '***fortie40###';
-    $username = '40FoRtIe';
-    $username_rev = strrev($username);
-    $actual_password = $password.$username_rev;
+    // $username = '40FoRtIe';
+    // $username_rev = strrev($username);
+    // $actual_password = $password.$username_rev;
     
     $sql = "SELECT password FROM version_code_name";
     $results = DatabaseFunctions::find_by_sql($sql, null);
     foreach ($results as $key) {
-        $password = $key->password;
+        $actual_password = $key->password;
     }
-    $verify = password_verify($actual_password, $password);
+    $verify = password_verify($password, $actual_password);
     
     if(!$verify):
         HelperFunctions::return_message('error', WRONG_PASSWORD, 'Incorrect Password');

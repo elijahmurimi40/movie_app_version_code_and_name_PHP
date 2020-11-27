@@ -33,8 +33,8 @@ class POSTGRESQLDatabase {
     }
     private function open_connection() {
         // local
-        // $connect = 'host=localhost dbname=movie_app user=postgres password=root';
-        $connect = $this->heroku_db();
+        $connect = 'host=localhost dbname=movie_app user=postgres password=root';
+        // $connect = $this->heroku_db();
         
         try {
             $this->connection = new PDO('pgsql:'.$connect);
