@@ -1,5 +1,12 @@
 <?php
 class HelperFunctions {
+    public static function enable_cors() {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, POST');
+        header('Access-Control-Allow-Headers: '
+                . 'X-Requested-With, token, Content-Type'
+        );
+    }
     public static function return_message($type, $code, $message) {
         header('content-type: application/json');
         $errorMessage = json_encode(
