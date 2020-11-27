@@ -31,5 +31,18 @@ class HelperFunctions {
             return true;
         }
     }
+    
+    public static function check_empty($data, $key) {
+        $message_value = $key.' cannot be empty';
+        empty(trim($data)) ? self::return_message(ERROR_M, MUST_CONTAIN_VALUE, 
+                $message_value) : '';
+        
+        return $data;
+    }
+    
+    public static function not_set($key) {
+        $message_key = $key.' key must be present';
+        self::return_message(ERROR_M, KEY_MUST_EXIST, $message_key);
+    }
 }
 

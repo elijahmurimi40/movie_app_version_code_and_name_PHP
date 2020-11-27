@@ -23,16 +23,36 @@ function verify_password($password) {
     endif;
 }
 
-function insert_data() {
-    global $database;
+function verify_data() {
     $input_data = file_get_contents('php://input');
-    $decoded_data = json_decode($input_data, true);
-    $version_code = $decoded_data["version_code"];
-    $version_name = $decoded_data['version_name'];
-    $password = $decoded_data['password'];
+    $decoded_data = empty(json_decode($input_data, true)) ? 
+            HelperFunctions::return_message(ERROR_M, NO_DATA, 'No data') 
+            : json_decode($input_data, true);
     
+    $password = isset($decoded_data['password']) 
+            ? HelperFunctions::check_empty($decoded_data['password'], 'password') 
+            : HelperFunctions::not_set('password');
     verify_password($password);
     
+    $data = isset($decoded_data['data']) ? $decoded_data['data'] 
+            : HelperFunctions::not_set('data');
+    
+    $version_code = isset($data['version_code']) 
+            ? HelperFunctions::check_empty($data['version_code'], 'version_code')
+            : HelperFunctions::not_set('version_code');
+    
+    $version_name = isset($data['version_name'])
+            ? HelperFunctions::check_empty($data['version_name'], 'version_name')
+            : HelperFunctions::not_set('version_name');
+    
+    $version_code_int = is_numeric($version_code) ? $version_code 
+            : HelperFunctions::return_message(ERROR_M, ERROR, 'invalid version code');
+    
+    insert_data($version_code_int, $version_name);
+}
+
+function insert_data($version_code, $version_name) {
+    global $database;
     $table = 'version_code_name';
     $placeholder = array(
         'version_code' => 'version_code',
@@ -48,5 +68,4 @@ function insert_data() {
     HelperFunctions::return_message(SUCCESS_M, SUCCESS, 'Successfully Updated');
 }
 
-$results = insert_data();
-echo $results;
+verify_data();
