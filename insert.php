@@ -2,10 +2,9 @@
 require_once 'core/database_functions.php';
 require_once 'core/constants.php';
 
+HelperFunctions::enable_cors();
 HelperFunctions::verify_method_post();
 HelperFunctions::verify_content_json();
-HelperFunctions::enable_cors();
-
 function verify_password($password) {
     // $password = '***fortie40###';
     // $username = '40FoRtIe';
