@@ -1,4 +1,11 @@
 <?php
+header('Access-Control-Allow-Origin: *');
+
+header('Access-Control-Allow-Methods: GET, POST');
+
+header("Access-Control-Allow-Headers: X-Requested-With");
+
+
 require_once 'core/database_functions.php';
 require_once 'core/constants.php';
 
