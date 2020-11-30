@@ -3,8 +3,9 @@ require_once 'constants.php';
 require_once 'helper_functions.php';
 class POSTGRESQLDatabase {
     private $connection;
+    private static $instance = null;
     
-    function __construct() {
+    private function __construct() {
         $this->open_connection();
     }
     
@@ -77,6 +78,14 @@ class POSTGRESQLDatabase {
         $sql = "UPDATE $table SET $val WHERE $where";
         $this->query_sql($sql, $data);
     }
+    
+    public static function get_instance() {
+        if(self::$instance == null):
+            self::$instance = new POSTGRESQLDatabase();
+        endif;
+        
+        return self::$instance;
+    }
 }
 
-$database = new POSTGRESQLDatabase();
+$database = POSTGRESQLDatabase::get_instance();
